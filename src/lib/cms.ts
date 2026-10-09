@@ -73,7 +73,10 @@ const SETTINGS_FALLBACK: Settings = {
   tagline: "Kurti manufacture, Ahmedabad",
   description:
     "Kivia Designs is a kurti manufacturing house in Ahmedabad. Browse cotton, rayon, georgette and chanderi kurtis, kurti pant sets and co-ord sets, and order anywhere in India.",
-  url: "https://kiviadesigns.in",
+  // The canonical address. Until staff set a real domain in Settings, follow
+  // the host the site is actually served from, so the canonical link and Open
+  // Graph tags never advertise a domain that does not resolve.
+  url: process.env.NEXT_PUBLIC_SERVER_URL || "https://kiviadesigns.in",
   locale: "en_IN",
   phone: "9727815381",
   whatsapp: "919727815381",

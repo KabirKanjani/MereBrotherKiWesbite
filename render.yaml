@@ -19,7 +19,7 @@
 
 services:
   - type: web
-    name: kivia-designs
+    name: kiviadesigns
     runtime: node
     plan: starter # change to `free` to try it, accepting the cold starts
     region: singapore
