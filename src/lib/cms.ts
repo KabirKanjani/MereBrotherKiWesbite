@@ -2,6 +2,7 @@ import "server-only";
 import { cache } from "react";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { products as catalogProducts } from "@/lib/catalog";
 
 /**
  * The storefront's view of CMS content.
@@ -160,12 +161,51 @@ const getReadDB = cache(async () => {
   }
 });
 
+/**
+ * The catalogue as defined in code, used when the database cannot be read.
+ *
+ * These are exactly the 11 styles the seed imports into the CMS, and their
+ * photographs are committed under public/products, so this is the same shop
+ * rather than a placeholder. It means the storefront renders the full catalogue
+ * before the CMS has been connected, and keeps rendering it if the database is
+ * ever unreachable, instead of showing a server error to a customer.
+ */
+function catalogFallback(): Product[] {
+  return catalogProducts.map((p, index) => ({
+    id: index + 1,
+    slug: p.slug,
+    name: p.name || "",
+    category: p.category,
+    fabric: p.fabric ?? null,
+    occasions: p.occasions ?? [],
+    sizes: p.sizes ?? [],
+    shortNote: p.shortNote || "",
+    colors: (p.colors ?? []).map((c) => ({ name: c.name, hex: c.hex ?? "" })),
+    length: p.length || "",
+    work: p.work || "",
+    details: p.details ?? [],
+    care: p.care ?? [],
+    image: p.image,
+    alt: `${p.name || p.category}${p.fabric ? ` in ${p.fabric}` : ""}, Kivia Designs`,
+    instagramUrl: p.instagramUrl || "",
+    instagramCode: p.instagramCode || "",
+    featured: Boolean(p.featured),
+    isNew: Boolean(p.isNew),
+    sortOrder: index,
+    // Bulk rates are never published on the storefront, matching the seed.
+    rateCardPrice: null,
+    seasonSlug: null,
+    seasonTitle: null,
+  }));
+}
+
 export const getProducts = cache(async (): Promise<Product[]> => {
   const payload = await getReadDB();
-  // No database yet: render an empty catalogue rather than fail the page.
-  if (!payload) return [];
+  // No database yet: render the built-in catalogue rather than fail the page.
+  if (!payload) return catalogFallback();
 
-  const { docs } = await payload.find({
+  try {
+    const { docs } = await payload.find({
     collection: "products",
     // draft: false is what stops unpublished styles reaching the storefront.
     draft: false,
@@ -209,7 +249,11 @@ featured: Boolean(doc.featured),
       seasonTitle:
         doc.season && typeof doc.season === "object" ? (doc.season.title ?? null) : null,
     };
-  });
+    });
+  } catch {
+    // A reading failure should not blank the catalogue.
+    return catalogFallback();
+  }
 });
 
 export const getProduct = cache(async (slug: string): Promise<Product | null> => {
