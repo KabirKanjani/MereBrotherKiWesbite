@@ -147,6 +147,25 @@ function mediaAlt(media: MediaDoc, fallback: string): string {
 }
 
 /**
+ * Until object storage is configured, an uploaded photo only exists on the host
+ * that wrote it, so a deployed site could never serve a CMS upload from
+ * Render's ephemeral disk. While that stays true the storefront keeps showing
+ * the photograph committed to the repo (public/products), keyed by slug. The
+ * moment IMAGE_STORAGE_* environment variables are set, the media document's
+ * URL is used instead and admin-uploaded photos take over.
+ */
+function durableImage(media: MediaDoc, slug: string | null | undefined): string | null {
+  const stored = mediaUrl(media);
+  const storageConfigured = Boolean(
+    process.env.IMAGE_STORAGE_ENDPOINT && process.env.IMAGE_STORAGE_BUCKET,
+  );
+  if (!storageConfigured && slug) {
+    return `/products/${slug}.jpg`;
+  }
+  return stored;
+}
+
+/**
  * The read-only connection, used by the storefront.
  *
  * Opening the connection can itself fail — during a production build, or on a
@@ -233,7 +252,7 @@ export const getProducts = cache(async (): Promise<Product[]> => {
       work: doc.work || "",
       details: (doc.details ?? []).map((d) => d.detail),
       care: (doc.care ?? []).map((c) => c.instruction),
-      image: mediaUrl(doc.image as MediaDoc),
+      image: durableImage(doc.image as MediaDoc, doc.slug),
       alt: mediaAlt(doc.image as MediaDoc, fallbackAlt),
       instagramUrl: doc.instagramUrl || "",
       instagramCode: doc.instagramCode || "",
