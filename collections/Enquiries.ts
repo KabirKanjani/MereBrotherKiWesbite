@@ -34,7 +34,7 @@ export const Enquiries: CollectionConfig = {
   admin: {
     useAsTitle: "name",
     defaultColumns: ["name", "phone", "interest", "status", "createdAt"],
-    group: "Enquiries",
+    group: "Enquiries & orders",
     description: "People who asked about a style, a bulk order or custom work.",
     listSearchableFields: ["name", "phone", "email", "city", "notes"],
   },

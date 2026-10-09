@@ -26,7 +26,7 @@ export const ProductionTasks: CollectionConfig = {
   admin: {
     useAsTitle: "stage",
     defaultColumns: ["order", "stage", "assignedTo", "piecesDone", "piecesTarget", "status", "dueDate"],
-    group: "Production",
+    group: "Stock & factory",
     description:
       "Each step of making an order, who is doing it, and how many pieces are done.",
     listSearchableFields: ["stage", "notes", "order"],

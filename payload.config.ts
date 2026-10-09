@@ -50,6 +50,12 @@ const ADMIN_LOGO = {
   serverProps: { src: resolveLogoSrc() },
 };
 
+/**
+ * A compact "what do you want to do?" strip above the sidebar links, so the
+ * everyday actions are one tap away instead of buried in the section list.
+ */
+const QUICK_ACTIONS = "@/components/admin/QuickActions#default";
+
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
@@ -130,6 +136,7 @@ export default buildConfig({
       graphics: {
         Logo: ADMIN_LOGO,
       },
+      beforeNavLinks: [QUICK_ACTIONS],
     },
     dashboard: {
       widgets: [
@@ -172,23 +179,28 @@ export default buildConfig({
     },
   },
 
+  // The order here is the order the sidebar sections appear in, so the everyday
+  // Shop section comes first and the settings last.
   collections: [
-  Users,
-  Media,
-  Products,
-  Pages,
-  SeasonalCollections,
-  SocialPosts,
-  Enquiries,
-  StockistApplications,
-  // Operations: wholesale trading, stock and the factory floor.
-  Buyers,
-  Orders,
-  Payments,
-  StockMovements,
-  TeamMembers,
-  ProductionTasks,
-],
+    // The Shop: everything a visitor sees.
+    Products,
+    Media,
+    SeasonalCollections,
+    SocialPosts,
+    // Enquiries & orders: leads and the wholesale order book.
+    Enquiries,
+    StockistApplications,
+    Buyers,
+    Orders,
+    Payments,
+    // Stock & factory: the floor and the warehouse.
+    StockMovements,
+    TeamMembers,
+    ProductionTasks,
+    // Settings: the people with logins, the page wording, and shop details.
+    Users,
+    Pages,
+  ],
 
   globals: [Settings],
 

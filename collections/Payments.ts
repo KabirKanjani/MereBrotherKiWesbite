@@ -28,7 +28,7 @@ export const Payments: CollectionConfig = {
   admin: {
     useAsTitle: "reference",
     defaultColumns: ["paidOn", "buyer", "order", "amountPaise", "method"],
-    group: "Orders",
+    group: "Enquiries & orders",
     description: "Every payment received, so the outstanding figure is trustworthy.",
     listSearchableFields: ["reference", "notes"],
   },

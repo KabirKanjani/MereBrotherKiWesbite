@@ -27,7 +27,7 @@ export const Buyers: CollectionConfig = {
   admin: {
     useAsTitle: "businessName",
     defaultColumns: ["businessName", "contactName", "city", "type", "status", "updatedAt"],
-    group: "Orders",
+    group: "Enquiries & orders",
     description: "Shops and traders you sell to in bulk. One record per customer.",
     listSearchableFields: ["businessName", "contactName", "phone", "city", "gstin"],
   },

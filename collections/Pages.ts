@@ -36,7 +36,7 @@ export const Pages: CollectionConfig = {
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "slug", "_status", "updatedAt"],
-    group: "Words & pages",
+    group: "Settings",
     description: "The wording on the About, Craft, Bulk Orders, Size Guide and Visit pages.",
   },
   versions: {

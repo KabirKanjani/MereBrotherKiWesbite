@@ -26,7 +26,7 @@ export const TeamMembers: CollectionConfig = {
   admin: {
     useAsTitle: "name",
     defaultColumns: ["name", "role", "phone", "active"],
-    group: "Stock",
+    group: "Stock & factory",
     description:
       "Designers, cutters, machinists and finishers. Add a person here before assigning work to them.",
     listSearchableFields: ["name", "role", "phone"],

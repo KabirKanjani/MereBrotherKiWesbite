@@ -24,7 +24,7 @@ export const StockistApplications: CollectionConfig = {
   admin: {
     useAsTitle: "businessName",
     defaultColumns: ["businessName", "ownerName", "city", "monthlyPieces", "status", "createdAt"],
-    group: "Enquiries",
+    group: "Enquiries & orders",
     description: "Shops that want to sell Kivia Designs in their area.",
     listSearchableFields: [
       "businessName",

@@ -40,7 +40,7 @@ export const Orders: CollectionConfig = {
       "balancePaise",
       "promisedBy",
     ],
-    group: "Orders",
+    group: "Enquiries & orders",
     description: "Every bulk order, from first quote to paid.",
     listSearchableFields: ["orderNumber", "buyerNote", "poNumber", "lines.description"],
   },

@@ -29,7 +29,7 @@ export const StockMovements: CollectionConfig = {
   admin: {
     useAsTitle: "kind",
     defaultColumns: ["occurredOn", "product", "size", "quantityChange", "kind", "order"],
-    group: "Stock",
+    group: "Stock & factory",
     description:
       "Every piece that came in or went out. Stock on hand is the sum of these — nothing is overwritten.",
     listSearchableFields: ["reference", "notes", "kind"],
