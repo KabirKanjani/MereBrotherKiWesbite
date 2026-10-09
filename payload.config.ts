@@ -51,10 +51,11 @@ const ADMIN_LOGO = {
 };
 
 /**
- * A compact "what do you want to do?" strip above the sidebar links, so the
- * everyday actions are one tap away instead of buried in the section list.
+ * Replaces the whole admin sidebar with a calmer menu: four everyday action
+ * tiles, then the rest of the panels folded into collapsible sections so the
+ * shop is not facing a wall of fifteen links every time it signs in.
  */
-const QUICK_ACTIONS = "@/components/admin/QuickActions#default";
+const ADMIN_NAV = "@/components/admin/AdminNav#default";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -136,7 +137,7 @@ export default buildConfig({
       graphics: {
         Logo: ADMIN_LOGO,
       },
-      beforeNavLinks: [QUICK_ACTIONS],
+      Nav: ADMIN_NAV,
     },
     dashboard: {
       widgets: [
