@@ -1,0 +1,49 @@
+# The CMS needs a real database and durable file storage. Neither is bundled with
+# Render's free web service, so this file declares what the app needs and lets you
+# create it from Render's dashboard or blueprint support.
+#
+# Two things are NOT free here, and it is worth being clear about that up front:
+#
+#   1. Postgres. Render sells its own Postgres from about $7/month. The free
+#      alternative is Neon or Supabase, which have free tiers and work fine from
+#      Render. Set DATABASE_URI to whichever you choose.
+#
+#   2. Always-on hosting. Render's free web service spins down after 15 minutes
+#      idle and takes roughly a minute to wake, so a customer landing on the site
+#      would wait. The Starter plan at $7/month avoids that.
+#
+# Media uploads also cannot use Render's local disk in production: it is
+# ephemeral, so every deploy would delete the photographs. Uploaded images need
+# object storage such as Cloudflare R2 (free to 10GB) or AWS S3. See
+# tools/README-deploy.md for the exact steps.
+
+services:
+  - type: web
+    name: kivia-designs
+    runtime: node
+    plan: starter # change to `free` to try it, accepting the cold starts
+    region: singapore
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: NODE_ENV
+        value: production
+      - key: PAYLOAD_SECRET
+        generateValue: true
+      - key: NEXT_PUBLIC_SERVER_URL
+        sync: false # set to your live domain
+      - key: DATABASE_URI
+        sync: false # from Render Postgres, Neon or Supabase
+      - key: CSRF_TRUST_ORIGIN
+        sync: false # your live domain
+      - key: IMAGE_STORAGE_ENDPOINT
+        sync: false # Cloudflare R2 or S3 endpoint
+      - key: IMAGE_STORAGE_BUCKET
+        sync: false
+      - key: IMAGE_STORAGE_ACCESS_KEY_ID
+        sync: false
+      - key: IMAGE_STORAGE_SECRET_ACCESS_KEY
+        sync: false

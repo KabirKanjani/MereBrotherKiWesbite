@@ -32,6 +32,9 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# the template is committed deliberately: it documents what is needed and holds
+# no real values
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +42,26 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# instagram harvesting: saved session cookies are credentials, never commit them
+/tools/.ig-cookies.json
+# the raw harvest output is regenerable, and photos are already committed under
+# public/products, so keep 1.6MB of duplicates out of the history
+/tools/harvest-data/photos/
+/tools/harvest-data/*.bak
+/tools/*.png
+/tools/*.jpg
+
+# CMS: local development database and uploaded media. Both are runtime state,
+# not source. Uploads are handled by object storage in production.
+/payload.db
+/payload.db-journal
+/media
+
+# Generated from the collection definitions. Regenerate with `npm run generate:types`
+/payload-types.ts
+/generated-schema.graphql
+
+# local dev server logs
+dev.log
+dev.err.log

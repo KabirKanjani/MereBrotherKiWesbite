@@ -1,0 +1,69 @@
+/**
+ * Kivia admin theming.
+ *
+ * Load order matters. `@payloadcms/next/css` is imported by the layout before
+ * this file, so these overrides win over Payload's defaults.
+ *
+ * The palette is taken from the storefront's theme tokens in globals.css: warm
+ * paper backgrounds, ink text, clay for actions and maroon for emphasis. The
+ * values are repeated rather than imported because Payload compiles this file
+ * on its own, separate from the site's Tailwind pipeline.
+ */
+
+:root {
+  /* Brand colours */
+  --kivia-linen: #fbf8f3;
+  --kivia-sand: #f7f1e8;
+  --kivia-sand-deep: #ece2d2;
+  --kivia-line: #e2d8c9;
+  --kivia-ink: #1b1512;
+  --kivia-ink-soft: #4a4038;
+  --kivia-clay: #9c4a28;
+  --kivia-clay-dark: #7a3819;
+  --kivia-maroon: #6e1b2e;
+  --kivia-saffron: #c79a3c;
+
+  /*
+   * Payload builds every surface from an elevation ramp running dark to light.
+   * Re-pointing it at the shop's paper tones keeps cards, panels and menus in
+   * the same family as the storefront instead of Payload's cool grey.
+   */
+  --color-base-0: var(--kivia-linen);
+  --color-base-50: var(--kivia-sand);
+  --color-base-100: var(--kivia-sand-deep);
+  --color-base-150: #e4d9c8;
+  --color-base-200: #d8cbb6;
+
+  --theme-success-500: var(--kivia-maroon);
+  --theme-success-600: #5a1524;
+
+  /* Save and publish actions are the primary things staff click. */
+  --theme-success-450: var(--kivia-clay);
+  --theme-success-550: var(--kivia-clay-dark);
+
+  /* Errors stay red; only the ramp is nudged warmer. */
+  --theme-error-500: #a3352a;
+  --theme-error-600: #87281f;
+
+  --theme-success-200: #e8d4d8;
+  --theme-error-200: #f0d6d2;
+
+  /* Rounded corners read as softer and more approachable. */
+  --style-radius-s: 2px;
+  --style-radius-m: 3px;
+  --style-radius-l: 4px;
+}
+
+/* The admin uses the storefront's serif for headings so it feels related. */
+.template-default h1,
+.template-default h2,
+.template-default h3,
+.nav h3 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+/* Save/publish buttons pick up the clay tone from the success ramp above. */
+.btn--style-primary {
+  font-family: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+}
