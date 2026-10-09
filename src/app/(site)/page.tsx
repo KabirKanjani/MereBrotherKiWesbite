@@ -137,7 +137,7 @@ export default async function HomePage() {
                   label={p.category}
                   className="transition-transform duration-700 ease-out group-hover:scale-105"
                   sizes="(min-width: 768px) 25vw, 50vw"
-                  priority={i === 0}
+                  priority={i < 4}
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 to-transparent p-4 pt-10">
                   <p className="font-display text-lg text-linen">
