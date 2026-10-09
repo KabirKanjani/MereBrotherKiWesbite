@@ -428,14 +428,19 @@ export const getSeasons = cache(async (): Promise<Season[]> => {
   const payload = await getReadDB();
   if (!payload) return [];
 
-  const { docs } = await payload.find({
-    collection: "seasonal-collections",
-    draft: false,
-    depth: 1,
-    limit: 50,
-    sort: ["sortOrder", "title"],
-  });
-  return docs.map(toSeason);
+  try {
+    const { docs } = await payload.find({
+      collection: "seasonal-collections",
+      draft: false,
+      depth: 1,
+      limit: 50,
+      sort: ["sortOrder", "title"],
+    });
+    return docs.map(toSeason);
+  } catch {
+    // Before migrations, or during an outage, there are simply no seasons.
+    return [];
+  }
 });
 
 export const getSeason = cache(async (slug: string): Promise<Season | null> => {
@@ -469,22 +474,27 @@ export const getSocialPosts = cache(async (limit = 6): Promise<SocialPost[]> => 
   const payload = await getReadDB();
   if (!payload) return [];
 
-  const { docs } = await payload.find({
-    collection: "social-posts",
-    where: { published: { equals: true } },
-    draft: false,
-    depth: 1,
-    limit,
-    sort: ["-postedAt", "-createdAt"],
-  });
+  try {
+    const { docs } = await payload.find({
+      collection: "social-posts",
+      where: { published: { equals: true } },
+      draft: false,
+      depth: 1,
+      limit,
+      sort: ["-postedAt", "-createdAt"],
+    });
 
-  return docs
-    .map((doc) => ({
-      id: doc.id,
-      image: mediaSrc(doc.image as MediaLike) ?? "",
+    return docs
+      .map((doc) => ({
+        id: doc.id,
+        image: mediaSrc(doc.image as MediaLike) ?? "",
       caption: doc.caption ?? "",
       permalink: doc.permalink ?? "",
       postedAt: doc.postedAt ?? null,
     }))
-    .filter((p) => p.image !== "");
+      .filter((p) => p.image !== "");
+  } catch {
+    // No posts until the CMS is connected; the strip is simply left out.
+    return [];
+  }
 });
