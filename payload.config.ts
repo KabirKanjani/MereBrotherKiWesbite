@@ -169,9 +169,36 @@ export default buildConfig({
         { widgetSlug: "job-board", width: "full" },
       ],
     },
-    // Keeps the admin out of search results.
+    /*
+     * Shows the real website in a panel beside the edit form, so the person
+     * editing can see the page they are changing instead of imagining it.
+     *
+     * The panel points at whichever page the open document actually renders to,
+     * rather than always at the homepage, so editing a style shows that style on
+     * the site and editing wording shows that page.
+     */
     livePreview: {
-      url: process.env.NEXT_PUBLIC_SERVER_URL ?? "http://localhost:3000",
+      collections: ["products", "pages", "social-posts", "seasonal-collections"],
+      globals: ["settings"],
+      // Opens by itself the first time a document is opened, so nobody has to
+      // go looking for a button.
+      openByDefault: true,
+      url: ({ collectionConfig, data }) => {
+        const base = process.env.NEXT_PUBLIC_SERVER_URL ?? "http://localhost:3000";
+        const slug = typeof data?.slug === "string" ? data.slug : "";
+
+        if (collectionConfig?.slug === "products") {
+          return slug ? `${base}/collection/${slug}` : `${base}/collection`;
+        }
+        if (collectionConfig?.slug === "seasonal-collections") {
+          return slug ? `${base}/seasons/${slug}` : `${base}/seasons`;
+        }
+        if (collectionConfig?.slug === "pages") {
+          return slug ? `${base}/${slug}` : base;
+        }
+        // The homepage is where social posts and shop details both show up.
+        return base;
+      },
       breakpoints: [
         { name: "mobile", label: "Mobile", width: 390, height: 844 },
         { name: "tablet", label: "Tablet", width: 834, height: 1112 },
