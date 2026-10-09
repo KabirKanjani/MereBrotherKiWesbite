@@ -126,13 +126,27 @@ function mediaAlt(media: MediaDoc, fallback: string): string {
 }
 
 /**
- * getPayload is wrapped in React's cache so several components on one page share
- * a single connection rather than each opening their own.
+ * The read-only connection, used by the storefront.
+ *
+ * Opening the connection can itself fail — during a production build, or on a
+ * host whose database has not finished waking. `getPayload` throws in that case,
+ * and a throw here would fail the build rather than render the page from
+ * defaults. Reads therefore get a null and fall back; the write paths on the
+ * operations side still use getDB and are allowed to throw, because silently
+ * dropping a payment is worse than a visible error.
  */
-const getDB = cache(async () => getPayload({ config }));
+const getReadDB = cache(async () => {
+  try {
+    return await getPayload({ config });
+  } catch {
+    return null;
+  }
+});
 
 export const getProducts = cache(async (): Promise<Product[]> => {
-  const payload = await getDB();
+  const payload = await getReadDB();
+  // No database yet: render an empty catalogue rather than fail the page.
+  if (!payload) return [];
 
   const { docs } = await payload.find({
     collection: "products",
@@ -221,7 +235,8 @@ export const getAllOccasions = cache(async (): Promise<string[]> => {
 });
 
 export const getSettings = cache(async (): Promise<Settings> => {
-  const payload = await getDB();
+  const payload = await getReadDB();
+  if (!payload) return SETTINGS_FALLBACK;
 
   try {
     const doc = await payload.findGlobal({ slug: "settings", depth: 0 });
@@ -274,7 +289,8 @@ export type PageContent = {
 };
 
 export const getPage = cache(async (slug: string): Promise<PageContent | null> => {
-  const payload = await getDB();
+  const payload = await getReadDB();
+  if (!payload) return null;
 
   try {
     const { docs } = await payload.find({
@@ -348,7 +364,9 @@ function toSeason(doc: {
 }
 
 export const getSeasons = cache(async (): Promise<Season[]> => {
-  const payload = await getDB();
+  const payload = await getReadDB();
+  if (!payload) return [];
+
   const { docs } = await payload.find({
     collection: "seasonal-collections",
     draft: false,
@@ -387,7 +405,9 @@ export type SocialPost = {
  * even if this query were changed.
  */
 export const getSocialPosts = cache(async (limit = 6): Promise<SocialPost[]> => {
-  const payload = await getDB();
+  const payload = await getReadDB();
+  if (!payload) return [];
+
   const { docs } = await payload.find({
     collection: "social-posts",
     where: { published: { equals: true } },

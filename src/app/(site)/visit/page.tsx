@@ -3,6 +3,11 @@ import Link from "next/link";
 import { getSettings } from "@/lib/cms";
 import { generalWhatsappUrl, visitWhatsappUrl } from "@/lib/whatsapp";
 
+// Reads live settings, so it cannot be prerendered. Prerendering would make the
+// build open a database connection, and on Render the database is not reachable
+// until the service is already running.
+export const dynamic = "force-dynamic";
+
 /**
  * The store address was the one detail most likely to change and the hardest to
  * change, sitting in code as a placeholder. It is read from the CMS instead.

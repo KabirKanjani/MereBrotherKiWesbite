@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { getSettings } from "@/lib/cms";
 
+// Reads live settings, so it cannot be prerendered. Prerendering would make the
+// build open a database connection, and on Render the database is not reachable
+// until the service is already running.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Size Guide & Fabric Care",
   description:

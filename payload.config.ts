@@ -82,6 +82,21 @@ const adapter = databaseURI
         idleTimeoutMillis: 30_000,
         connectionTimeoutMillis: 10_000,
       },
+      /*
+       * Render gives the shop a completely empty Postgres database. Without a
+       * schema push, the very first request to /admin would fail because none of
+       * the tables exist.
+       *
+       * This is the right choice for a small shop with no migrations yet: the
+       * schema is reconciled from the collections on each boot, so adding a
+       * field in the admin panel is enough to change the database.
+       *
+       * It is not the right choice for a large database with real money in it.
+       * Once orders and payments carry live figures, replace this with generated
+       * migration files (payload migrate:create) run by a release command, so a
+       * deploy can never silently drop a column.
+       */
+      push: true,
     })
   : sqliteAdapter({
       client: { url: sqliteURL },

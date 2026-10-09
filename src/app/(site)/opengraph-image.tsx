@@ -8,6 +8,11 @@ export const alt = `${fallbackSite.name} — kurti manufacturer in ${fallbackSit
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Reads live settings, so it cannot be prerendered. Prerendering would make the
+// build open a database connection, and on Render the database is not reachable
+// until the service is already running.
+export const dynamic = "force-dynamic";
+
 export default async function OpenGraphImage() {
   const site = await getSettings();
 
