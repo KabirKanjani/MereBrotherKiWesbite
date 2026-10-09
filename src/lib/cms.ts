@@ -97,14 +97,31 @@ const SETTINGS_FALLBACK: Settings = {
  * site-relative path matters: next/image refuses to optimise an absolute src
  * unless that exact hostname is allow-listed, so an absolute localhost URL
  * breaks the page the moment the CMS is switched on.
+ *
+ * Only URLs on our own host are made relative. An upload living in object
+ * storage (Cloudflare R2, S3) has a genuinely different host, and rewriting it
+ * to a path would send the browser looking for the file on the web server,
+ * where it does not exist.
  */
+const SITE_ORIGIN = (() => {
+  try {
+    return new URL(process.env.NEXT_PUBLIC_SERVER_URL ?? "http://localhost:3000").origin;
+  } catch {
+    return "http://localhost:3000";
+  }
+})();
+
 function absolute(url: string | null | undefined): string | null {
   if (!url) return null;
 
   if (url.startsWith("http://") || url.startsWith("https://")) {
     try {
       const parsed = new URL(url);
-      return `${parsed.pathname}${parsed.search}`;
+      if (parsed.origin === SITE_ORIGIN) {
+        return `${parsed.pathname}${parsed.search}`;
+      }
+      // A different host: object storage, or an Instagram CDN image. Keep it.
+      return url;
     } catch {
       return null;
     }
