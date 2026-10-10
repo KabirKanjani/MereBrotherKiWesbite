@@ -57,6 +57,12 @@ const ADMIN_LOGO = {
  */
 const ADMIN_NAV = "@/components/admin/AdminNav#default";
 
+/**
+ * Wraps the whole admin panel so the logo's purple and coral can be applied as
+ * theme variables, rather than the stock colours.
+ */
+const ADMIN_THEME = "@/components/admin/ThemeProvider#default";
+
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
@@ -138,6 +144,7 @@ export default buildConfig({
         Logo: ADMIN_LOGO,
       },
       Nav: ADMIN_NAV,
+      providers: [ADMIN_THEME],
     },
     dashboard: {
       widgets: [

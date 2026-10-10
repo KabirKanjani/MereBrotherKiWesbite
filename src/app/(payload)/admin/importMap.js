@@ -27,6 +27,7 @@ import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { default as default_2623bc737c612ce9420322f2210a7f19 } from '@/components/admin/AdminNav'
 import { default as default_b80a86fce1072afc84cd6a430a965697 } from '@/components/admin/AdminLogo'
+import { default as default_a1a3c4a847480f0a30c7903f2efa894d } from '@/components/admin/ThemeProvider'
 import { default as default_9555d0a2446697da84f983de4648d3cd } from '@/components/admin/ShopOverview'
 import { default as default_84a16d72ec307a8eb992c713638f1f29 } from '@/components/admin/OpsOverview'
 import { default as default_e59d2a71614fd6d6b47b741827532ab9 } from '@/components/admin/JobBoard'
@@ -63,6 +64,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/components/admin/AdminNav#default": default_2623bc737c612ce9420322f2210a7f19,
   "@/components/admin/AdminLogo#default": default_b80a86fce1072afc84cd6a430a965697,
+  "@/components/admin/ThemeProvider#default": default_a1a3c4a847480f0a30c7903f2efa894d,
   "@/components/admin/ShopOverview#default": default_9555d0a2446697da84f983de4648d3cd,
   "@/components/admin/OpsOverview#default": default_84a16d72ec307a8eb992c713638f1f29,
   "@/components/admin/JobBoard#default": default_e59d2a71614fd6d6b47b741827532ab9,
