@@ -4,54 +4,85 @@
  * Load order matters. `@payloadcms/next/css` is imported by the layout before
  * this file, so these overrides win over Payload's defaults.
  *
- * The palette is taken from the storefront's theme tokens in globals.css: warm
- * paper backgrounds, ink text, clay for actions and maroon for emphasis. The
- * values are repeated rather than imported because Payload compiles this file
- * on its own, separate from the site's Tailwind pipeline.
+ * The palette is taken from the shop's own logo, whose two brand colours were
+ * read straight out of the artwork: a purple (#6040a0) and a coral (#f08060).
+ * Both are given a full nineteen-step ramp because Payload reads a different
+ * step for buttons, hover states, borders and text, and a ramp that collapses
+ * at one end produces unreadable hover states.
+ *
+ * The greys are Payload's own. A warm tint was tried here previously and made
+ * every panel look brown next to the logo, so the surfaces are left neutral and
+ * the brand lives in the accents where it belongs.
  */
 
 :root {
-  /* Brand colours */
-  --kivia-linen: #fbf8f3;
-  --kivia-sand: #f7f1e8;
-  --kivia-sand-deep: #ece2d2;
-  --kivia-line: #e2d8c9;
-  --kivia-ink: #1b1512;
-  --kivia-ink-soft: #4a4038;
-  --kivia-clay: #9c4a28;
-  --kivia-clay-dark: #7a3819;
-  --kivia-maroon: #6e1b2e;
-  --kivia-saffron: #c79a3c;
+  /* Primary — the logo's purple. Drives buttons, links, and the current item. */
+  --kivia-purple: #6040a0;
+  --color-success-50: #f8f7fa;
+  --color-success-100: #e8e4f0;
+  --color-success-150: #d7cee7;
+  --color-success-200: #c4b6e2;
+  --color-success-250: #b29fd9;
+  --color-success-300: #9f88cf;
+  --color-success-350: #8c6fc5;
+  --color-success-400: #7654bb;
+  --color-success-450: #6a46b0;
+  --color-success-500: #6040a0;
+  --color-success-550: #583c91;
+  --color-success-600: #503782;
+  --color-success-650: #473172;
+  --color-success-700: #3e2b62;
+  --color-success-750: #342552;
+  --color-success-800: #2b1f43;
+  --color-success-850: #211833;
+  --color-success-900: #171124;
+  --color-success-950: #0e0a14;
 
-  /*
-   * Payload builds every surface from an elevation ramp running dark to light.
-   * Re-pointing it at the shop's paper tones keeps cards, panels and menus in
-   * the same family as the storefront instead of Payload's cool grey.
-   */
-  --color-base-0: var(--kivia-linen);
-  --color-base-50: var(--kivia-sand);
-  --color-base-100: var(--kivia-sand-deep);
-  --color-base-150: #e4d9c8;
-  --color-base-200: #d8cbb6;
+  /* Secondary — the logo's coral. Notices, tags and the warmer highlights. */
+  --kivia-coral: #f08060;
+  --color-warning-50: #fbf7f6;
+  --color-warning-100: #f8ece8;
+  --color-warning-150: #f7ded7;
+  --color-warning-200: #f9cfc3;
+  --color-warning-250: #f8c1b2;
+  --color-warning-300: #f6b3a0;
+  --color-warning-350: #f4a48d;
+  --color-warning-400: #f29479;
+  --color-warning-450: #f08060;
+  --color-warning-500: #f08060;
+  --color-warning-550: #eb6b46;
+  --color-warning-600: #e6552b;
+  --color-warning-650: #d4451c;
+  --color-warning-700: #b43c1a;
+  --color-warning-750: #943317;
+  --color-warning-800: #742914;
+  --color-warning-850: #561f10;
+  --color-warning-900: #37150b;
+  --color-warning-950: #190a05;
 
-  --theme-success-500: var(--kivia-maroon);
-  --theme-success-600: #5a1524;
+  --color-info-50: #fbf7f6;
+  --color-info-100: #f8ece8;
+  --color-info-150: #f7ded7;
+  --color-info-200: #f9cfc3;
+  --color-info-250: #f8c1b2;
+  --color-info-300: #f6b3a0;
+  --color-info-350: #f4a48d;
+  --color-info-400: #f29479;
+  --color-info-450: #f08060;
+  --color-info-500: #f08060;
+  --color-info-550: #eb6b46;
+  --color-info-600: #e6552b;
+  --color-info-650: #d4451c;
+  --color-info-700: #b43c1a;
 
-  /* Save and publish actions are the primary things staff click. */
-  --theme-success-450: var(--kivia-clay);
-  --theme-success-550: var(--kivia-clay-dark);
-
-  /* Errors stay red; only the ramp is nudged warmer. */
-  --theme-error-500: #a3352a;
-  --theme-error-600: #87281f;
-
-  --theme-success-200: #e8d4d8;
-  --theme-error-200: #f0d6d2;
+  /* Errors stay red: a failed save must never read as a brand colour. */
+  --color-error-500: #c0392b;
+  --color-error-600: #a5281c;
 
   /* Rounded corners read as softer and more approachable. */
-  --style-radius-s: 2px;
-  --style-radius-m: 3px;
-  --style-radius-l: 4px;
+  --style-radius-s: 3px;
+  --style-radius-m: 4px;
+  --style-radius-l: 6px;
 }
 
 /* The admin uses the storefront's serif for headings so it feels related. */
@@ -63,7 +94,7 @@
   letter-spacing: -0.01em;
 }
 
-/* Save/publish buttons pick up the clay tone from the success ramp above. */
+/* Save/publish buttons pick up the purple from the success ramp above. */
 .btn--style-primary {
   font-family: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
 }
