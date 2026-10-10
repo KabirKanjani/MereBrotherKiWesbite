@@ -1,16 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #1b1512;
-  --color-ink-soft: #4a4038;
-  --color-clay: #9c4a28;
-  --color-clay-dark: #7a3819;
-  --color-maroon: #6e1b2e;
-  --color-saffron: #c79a3c;
-  --color-sand: #f7f1e8;
-  --color-sand-deep: #ece2d2;
-  --color-linen: #fbf8f3;
-  --color-line: #e2d8c9;
+  /*
+   * Brand palette, taken from the logo: purple #6040a0 and coral #f08060.
+   * The token names are kept as they were so nothing else has to change — only
+   * the values moved. Surfaces are a very pale lavender rather than a warm
+   * sand, which read as brown next to the logo.
+   */
+  --color-ink: #1a1520;
+  --color-ink-soft: #4b4458;
+  --color-clay: #6040a0;
+  --color-clay-dark: #503782;
+  --color-maroon: #2b1f43;
+  --color-saffron: #f08060;
+  --color-sand: #f6f3fa;
+  --color-sand-deep: #eae4f4;
+  --color-linen: #fcfbfe;
+  --color-line: #e3ddef;
 
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-sans: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
