@@ -75,7 +75,7 @@ export default async function HomePage() {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "repeating-linear-gradient(45deg, #F7F1E8 0px, #F7F1E8 1px, transparent 1px, transparent 9px)",
+                "repeating-linear-gradient(45deg, #F3EFFA 0px, #F3EFFA 1px, transparent 1px, transparent 9px)",
             }}
           />
         </div>

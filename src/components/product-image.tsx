@@ -11,13 +11,17 @@ type Props = {
   label?: string;
 };
 
+/**
+ * Placeholder gradients, all drawn from the logo's purple (#6040a0) and coral
+ * (#f08060) so a style without a photograph still looks on-brand.
+ */
 const palettes = [
-  ["#EDE3D2", "#C9A227"],
-  ["#E8D5C4", "#9C4A28"],
-  ["#DFE3E0", "#5F6B45"],
-  ["#E4DDE8", "#3D2B56"],
-  ["#F0E2E2", "#6E1B2E"],
-  ["#E6E8EC", "#2F3E5C"],
+  ["#EFEAF7", "#6040a0"],
+  ["#F7EDE8", "#f08060"],
+  ["#EFEDF7", "#7a5cb8"],
+  ["#F6EDE9", "#e1704f"],
+  ["#E9E4F4", "#2b1f43"],
+  ["#F3F0F9", "#503782"],
 ];
 
 /**

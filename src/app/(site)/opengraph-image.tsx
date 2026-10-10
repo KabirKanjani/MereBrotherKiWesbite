@@ -4,7 +4,7 @@ import { site as fallbackSite } from "@/lib/site";
 
 // `alt` has to be a static string, so it comes from the fallback copy rather than
 // the CMS. The image itself does read live settings.
-export const alt = `${fallbackSite.name} — kurti manufacturer in ${fallbackSite.city}`;
+export const alt = `${fallbackSite.name} â€” kurti manufacturer in ${fallbackSite.city}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -25,11 +25,11 @@ export default async function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#1b1512",
+          backgroundColor: "#1a1520",
           backgroundImage:
-            "repeating-linear-gradient(45deg, rgba(247,241,232,0.05) 0px, rgba(247,241,232,0.05) 1px, transparent 1px, transparent 14px)",
+            "repeating-linear-gradient(45deg, rgba(252,251,254,0.05) 0px, rgba(252,251,254,0.05) 1px, transparent 1px, transparent 14px)",
           padding: "80px",
-          color: "#f7f1e8",
+          color: "#fcfbfe",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -37,7 +37,7 @@ export default async function OpenGraphImage() {
             style={{
               fontSize: 26,
               letterSpacing: 6,
-              color: "#c79a3c",
+              color: "#f08060",
               display: "flex",
             }}
           >
@@ -63,7 +63,7 @@ export default async function OpenGraphImage() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            borderTop: "1px solid rgba(247,241,232,0.25)",
+            borderTop: "1px solid rgba(252,251,254,0.25)",
             paddingTop: 32,
           }}
         >
@@ -73,7 +73,7 @@ export default async function OpenGraphImage() {
           <div
             style={{
               fontSize: 26,
-              color: "rgba(247,241,232,0.7)",
+              color: "rgba(252,251,254,0.7)",
               display: "flex",
               gap: 16,
             }}

@@ -19,12 +19,12 @@ import { getProducts, getSettings } from "@/lib/cms";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/* Brand colours, matching globals.css. */
-const INK = "#1b1512";
-const CLAY = "#9c4a28";
-const INK_SOFT = "#4a4038";
-const LINE = "#e2d8c9";
-const SAND = "#f7f1e8";
+  /* Brand colours, matching globals.css: the logo's purple and coral. */
+  const INK = "#1a1520";
+  const CLAY = "#6040a0";
+  const INK_SOFT = "#4b4458";
+  const LINE = "#e3ddef";
+  const SAND = "#f6f3fa";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -65,11 +65,11 @@ export async function GET(request: Request) {
 
   /* ---- cover header ---- */
   doc.rect(0, 0, doc.page.width, 120).fill(INK);
-  doc.fillColor("#f7f1e8").font("Helvetica-Bold").fontSize(24).text(settings.name, M, 40);
-  doc.font("Helvetica").fontSize(10).fillColor("#c79a3c").text("WHOLESALE RATE CARD", M, 70);
-  doc
-    .fontSize(9)
-    .fillColor("#8c8378")
+    doc.fillColor("#fcfbfe").font("Helvetica-Bold").fontSize(24).text(settings.name, M, 40);
+    doc.font("Helvetica").fontSize(10).fillColor("#f08060").text("WHOLESALE RATE CARD", M, 70);
+    doc
+      .fontSize(9)
+      .fillColor("#6b6478")
     .text(
       `${settings.city}, ${settings.region}  |  ${settings.phone}  |  ${settings.email}`,
       M,
